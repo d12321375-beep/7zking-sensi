@@ -1,0 +1,277 @@
+
+name: Gerar APK - 7zking Sensi
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar projeto
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Configurar Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Configurar Android
+        uses: android-actions/setup-android@v3
+
+      - name: Preparar arquivos
+        run: |
+          mkdir -p app/src/main/assets
+          mkdir -p app/src/main/java/com/zking/sensi
+          cp AndroidManifest.xml app/src/main/AndroidManifest.xml
+          cp MainActivity.kt app/src/main/java/com/zking/sensi/MainActivity.kt
+          cp index.html app/src/main/assets/index.html
+          cat > app/build.gradle.kts <<'EOF'
+          plugins {
+              id("com.android.application")
+              id("org.jetbrains.kotlin.android")
+          }
+
+          android {
+              namespace = "com.zking.sensi"
+              compileSdk = 36
+
+              defaultConfig {
+                  applicationId = "com.zking.sensi"
+                  minSdk = 23
+                  targetSdk = 36
+                  versionCode = 1
+                  versionName = "1.0"
+              }
+          }
+          EOF
+
+      - name: Instalar SDK Android
+        run: |
+          sdkmanager "platforms;android-36" "build-tools;36.0.0"
+
+      - name: Compilar APK
+        run: gradle assembleDebug
+
+      - name: Disponibilizar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: 7zking-sensi-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+          
+name: Gerar APK - 7zking Sensi
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar projeto
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Configurar Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Configurar Android
+        uses: android-actions/setup-android@v3
+
+      - name: Preparar arquivos
+        run: |
+          mkdir -p app/src/main/assets
+          mkdir -p app/src/main/java/com/zking/sensi
+          cp AndroidManifest.xml app/src/main/AndroidManifest.xml
+          cp MainActivity.kt app/src/main/java/com/zking/sensi/MainActivity.kt
+          cp index.html app/src/main/assets/index.html
+          cat > app/build.gradle.kts <<'EOF'
+          plugins {
+              id("com.android.application")
+              id("org.jetbrains.kotlin.android")
+          }
+
+          android {
+              namespace = "com.zking.sensi"
+              compileSdk = 36
+
+              defaultConfig {
+                  applicationId = "com.zking.sensi"
+                  minSdk = 23
+                  targetSdk = 36
+                  versionCode = 1
+                  versionName = "1.0"
+              }
+          }
+          EOF
+
+      - name: Instalar SDK Android
+        run: |
+          sdkmanager "platforms;android-36" "build-tools;36.0.0"
+
+      - name: Compilar APK
+        run: gradle assembleDebug
+
+      - name: Disponibilizar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: 7zking-sensi-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+          
+name: Gerar APK - 7zking Sensi
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar projeto
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Configurar Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Configurar Android
+        uses: android-actions/setup-android@v3
+
+      - name: Preparar arquivos
+        run: |
+          mkdir -p app/src/main/assets
+          mkdir -p app/src/main/java/com/zking/sensi
+          cp AndroidManifest.xml app/src/main/AndroidManifest.xml
+          cp MainActivity.kt app/src/main/java/com/zking/sensi/MainActivity.kt
+          cp index.html app/src/main/assets/index.html
+          cat > app/build.gradle.kts <<'EOF'
+          plugins {
+              id("com.android.application")
+              id("org.jetbrains.kotlin.android")
+          }
+
+          android {
+              namespace = "com.zking.sensi"
+              compileSdk = 36
+
+              defaultConfig {
+                  applicationId = "com.zking.sensi"
+                  minSdk = 23
+                  targetSdk = 36
+                  versionCode = 1
+                  versionName = "1.0"
+              }
+          }
+          EOF
+
+      - name: Instalar SDK Android
+        run: |
+          sdkmanager "platforms;android-36" "build-tools;36.0.0"
+
+      - name: Compilar APK
+        run: gradle assembleDebug
+
+      - name: Disponibilizar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: 7zking-sensi-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+          
+name: Gerar APK - 7zking Sensi
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar projeto
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Configurar Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Configurar Android
+        uses: android-actions/setup-android@v3
+
+      - name: Preparar arquivos
+        run: |
+          mkdir -p app/src/main/assets
+          mkdir -p app/src/main/java/com/zking/sensi
+          cp AndroidManifest.xml app/src/main/AndroidManifest.xml
+          cp MainActivity.kt app/src/main/java/com/zking/sensi/MainActivity.kt
+          cp index.html app/src/main/assets/index.html
+          cat > app/build.gradle.kts <<'EOF'
+          plugins {
+              id("com.android.application")
+              id("org.jetbrains.kotlin.android")
+          }
+
+          android {
+              namespace = "com.zking.sensi"
+              compileSdk = 36
+
+              defaultConfig {
+                  applicationId = "com.zking.sensi"
+                  minSdk = 23
+                  targetSdk = 36
+                  versionCode = 1
+                  versionName = "1.0"
+              }
+          }
+          EOF
+
+      - name: Instalar SDK Android
+        run: |
+          sdkmanager "platforms;android-36" "build-tools;36.0.0"
+
+      - name: Compilar APK
+        run: gradle assembleDebug
+
+      - name: Disponibilizar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: 7zking-sensi-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+          
