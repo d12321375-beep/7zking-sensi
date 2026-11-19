@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>⁷zking.sensi</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#080808;color:white;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
+.container{width:100%;max-width:420px;background:#141414;border:1px solid #292929;border-radius:20px;padding:25px;box-shadow:0 0 25px rgba(255,0,0,.15)}
+.logo{text-align:center;font-size:28px;font-weight:bold;color:#ff3030;margin-bottom:8px}
+.subtitle{text-align:center;color:#888;font-size:13px;margin-bottom:25px}
+label{display:block;margin-bottom:8px;font-size:14px;color:#ccc}
+input{width:100%;padding:13px;border:1px solid #333;border-radius:10px;background:#202020;color:white;outline:none;margin-bottom:20px;font-size:16px}
+input:focus{border-color:#ff3030}
+.modes{display:flex;gap:10px;margin-bottom:20px}
+.mode{flex:1;padding:12px 5px;border:1px solid #333;background:#202020;color:white;border-radius:10px;cursor:pointer}
+.mode.active{background:#ff3030;border-color:#ff3030;font-weight:bold}
+.generate{width:100%;padding:15px;background:#ff3030;color:white;border:0;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer}
+.result{display:none;margin-top:25px;background:#1d1d1d;border-radius:15px;padding:18px}
+.result h2{color:#ff3030;text-align:center;margin-bottom:15px;font-size:20px}
+.device{text-align:center;color:#aaa;font-size:13px;margin-bottom:15px}
+.item{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #333}
+.item:last-of-type{border-bottom:none}
+.item span{color:#aaa}.item strong{color:#ff3030}
+.copy{width:100%;margin-top:15px;padding:12px;border:1px solid #ff3030;color:#ff3030;background:transparent;border-radius:10px;cursor:pointer;font-weight:bold}
+.footer{text-align:center;margin-top:20px;color:#555;font-size:12px}
+button:focus-visible,input:focus-visible{outline:2px solid #ff7777;outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">⁷zking.sensi</div>
+  <div class="subtitle">GERADOR DE SENSIBILIDADE</div>
+  <label for="celular">Modelo do celular</label>
+  <input type="text" id="celular" placeholder="Ex: Redmi Note 12, iPhone 11">
+  <label>Escolha a sensibilidade</label>
+  <div class="modes">
+    <button class="mode" onclick="selecionar('baixa',this)">Baixa</button>
+    <button class="mode" onclick="selecionar('media',this)">Média</button>
+    <button class="mode" onclick="selecionar('alta',this)">Alta</button>
+  </div>
+  <button class="generate" onclick="gerar()">GERAR SENSIBILIDADE</button>
+  <div class="result" id="resultado">
+    <h2>⁷zking.sensi</h2>
+    <div class="device" id="modelo"></div>
+    <div class="item"><span>Geral</span><strong id="geral"></strong></div>
+    <div class="item"><span>Ponto vermelho</span><strong id="red"></strong></div>
+    <div class="item"><span>Mira 2x</span><strong id="mira2"></strong></div>
+    <div class="item"><span>Mira 4x</span><strong id="mira4"></strong></div>
+    <div class="item"><span>AWM</span><strong id="awm"></strong></div>
+    <div class="item"><span>Olhadinha</span><strong id="olhadinha"></strong></div>
+    <div class="item"><span>DPI</span><strong id="dpi"></strong></div>
+    <div class="item"><span>Botão de tiro</span><strong id="tiro"></strong></div>
+    <button class="copy" onclick="copiar()">COPIAR SENSIBILIDADE</button>
+  </div>
+  <div class="footer">Desenvolvido por ⁷zking.sensi</div>
+</div>
+<script>
+let nivel="";
+function selecionar(tipo,botao){
+  nivel=tipo;
+  document.querySelectorAll(".mode").forEach(b=>b.classList.remove("active"));
+  botao.classList.add("active");
+}
+function aleatorio(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+function gerar(){
+  if(!nivel){alert("Escolha Baixa, Média ou Alta!");return}
+  let min=100,max=nivel==="baixa"?140:nivel==="media"?169:200;
+  const celular=document.getElementById("celular").value.trim();
+  document.getElementById("modelo").textContent=celular?"Celular: "+celular:"Celular não informado";
+  ["geral","red","mira2","mira4","awm","olhadinha"].forEach(id=>{
+    document.getElementById(id).textContent=aleatorio(min,max);
+  });
+  document.getElementById("dpi").textContent=aleatorio(400,1000);
+  document.getElementById("tiro").textContent=aleatorio(30,70)+"%";
+  document.getElementById("resultado").style.display="block";
+}
+function copiar(){
+  const linhas=[
+    "⁷zking.sensi",document.getElementById("modelo").textContent,"",
+    "Geral: "+geral.textContent,
+    "Ponto vermelho: "+red.textContent,
+    "Mira 2x: "+mira2.textContent,
+    "Mira 4x: "+mira4.textContent,
+    "AWM: "+awm.textContent,
+    "Olhadinha: "+olhadinha.textContent,
+    "DPI: "+dpi.textContent,
+    "Botão de tiro: "+tiro.textContent
+  ];
+  const texto=linhas.join("\n");
+  if(window.AndroidApp){AndroidApp.copiarTexto(texto);return}
+  if(navigator.clipboard){navigator.clipboard.writeText(texto).then(()=>alert("Sensibilidade copiada!")).catch(()=>alert("Não foi possível copiar."))}
+  else{alert("Cópia indisponível neste dispositivo.")}
+}
+</script>
+</body>
+</html>
